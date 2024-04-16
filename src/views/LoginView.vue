@@ -11,8 +11,7 @@
 				<div class="text-center text-4xl text-gray-700 font-light pb-10">
 					WhatsApp Clone
 				</div>
-				<div class="w-full flex justify-center bg-[#191919] p-3 rounded-md">
-					<GoogleLogin/>
+				<div id="container" class="w-full flex justify-center bg-[#191919] p-3 rounded-md">
 				</div>
 			</div>
 		</div>
@@ -25,10 +24,19 @@
 export default {
   data() {
     return {
-
     }
   },
-  components:{}
+  methods: {
+	yandexinit(){
+	},
+	getInfo(){
+	}
+  },
+  components:{},
+  mounted() {
+	this.yandexinit()
+  },
+
 }
 </script>
 

@@ -31,7 +31,12 @@
         </div>
       </div>
     </header>
-    <ChatsView class="mt-[100px]"/>
+	<div v-if="!showFindFriends">
+		<ChatsView class="mt-[100px]"/>
+	</div>
+	<div v-else>
+		<FindFriendsView class="mt-[100px]"/>
+	</div>
     <div v-if="open" class="">
       <ChatView/>
     </div>
@@ -53,6 +58,7 @@
 <script>
 import ChatView from '@/components/layout/ChatView.vue'
 import ChatsView from '@/components/layout/ChatsView.vue'
+import FindFriendsView from '@/components/layout/ChatsView.vue'
 import AccountGroup from 'vue-material-design-icons/AccountGroup.vue'
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
 import Magnify from 'vue-material-design-icons/Magnify.vue'
@@ -60,7 +66,8 @@ import Magnify from 'vue-material-design-icons/Magnify.vue'
 export default {
   data() {
     return {
-      open:true
+      open:true,
+	  showFindFriends: false
     }
   },
   components:{AccountGroup, DotsVertical, Magnify, ChatsView, ChatView}
