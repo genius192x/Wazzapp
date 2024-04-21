@@ -11,7 +11,48 @@
 				<div class="text-center text-4xl text-gray-700 font-light pb-10">
 					WhatsApp Clone
 				</div>
-				<div id="container" class="w-full flex justify-center bg-[#191919] p-3 rounded-md">
+				<div id="container" class="w-full flex justify-center  p-3 rounded-md">
+					<div v-if="error" class="alert alert-danger">{{error}}</div>
+					<form action="#" @submit.prevent="authentication">
+
+					<div class="form-group row mt-4">
+						<label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+
+						<div class="col-md-6">
+						<input
+							id="email"
+							type="email"
+							class="form-control border-2 border-teal-600 h-6 p-4 px-2 rounded-md"
+							name="email"
+							value
+							required
+							autofocus
+							v-model="email"
+						/>
+						</div>
+					</div>
+
+					<div class="form-group row mt-4">
+						<label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+						<div class="col-md-6">
+						<input
+							id="password"
+							type="password"
+							class="form-control border-2 border-teal-600 h-6 p-4 px-2 rounded-md"
+							name="password"
+							required
+							v-model="password"
+						/>
+						</div>
+					</div>
+
+					<div class="form-group row mb-0">
+						<div class="col-md-8 offset-md-4">
+						<button type="submit" class="w-full mt-10 bg-black text-white py-2 rounded-md">Sign in</button>
+						</div>
+					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -19,27 +60,35 @@
 </template>
 
 <script>
-
+import {mapState, mapActions} from 'pinia'
+import {useUserStore} from '@/store/userStore'
+import { useRouter } from 'vue-router'
 
 export default {
-  data() {
-    return {
-    }
-  },
-  methods: {
-	yandexinit(){
+	name: 'Login',
+	data() {
+		return {
+			name: '',
+			email: '',
+			password: '',
+			error: null,
+		}
 	},
-	getInfo(){
+	mounted() {
+		console.log(this.getUser);
+	},
+	computed:{
+		...mapState(useUserStore, ['user'])
+	},
+	methods: {
+		...mapActions(useUserStore, {signInUser: 'login',}),
+		authentication(){
+			this.signInUser(
+				this.email,
+				this.password,
+			),
+			this.$router.push('/');
+		},
 	}
-  },
-  components:{},
-  mounted() {
-	this.yandexinit()
-  },
-
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

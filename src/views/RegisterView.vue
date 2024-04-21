@@ -99,13 +99,11 @@ export default {
 	methods: {
 		...mapActions(useUserStore, {createUser: 'register',getUser: 'getUserData'}),
 		authentication(){
-			console.log('auth');-
 			this.createUser(
 				this.email,
 				this.password,
 				this.name,
 			),
-			console.log('final');
 			this.$router.push('/');
 		},
 	}
