@@ -60,19 +60,18 @@ export const useUserStore = defineStore('userStore', {
 		});
 	},
 	
-	async checkIfUserExist(id){
+	checkIfUserExist(id){
 		console.log('checkIfUserExist');
 		const docRef = doc(db, "users", id)
-		const docSnap = await getDoc(docRef)
+		const docSnap = getDoc(docRef)
 		return docSnap.exists()
 	},
-	async saveUserDetails(user){
+	saveUserDetails(user){
 		console.log(user);
-		debugger
 		console.log('saveUserDetails', user.displayName, user.email);
 		try{
 			console.log(user.displayName);
-			await setDoc(doc(db, "users", user.uid), {
+			setDoc(doc(db, "users", user.uid), {
 				uid: user.uid,
 				email: user.email,
 				name: user.displayName,
