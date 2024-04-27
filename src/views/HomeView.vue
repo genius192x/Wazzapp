@@ -5,7 +5,8 @@
         <img class="rounded-full ml-1 w-10" src="https://source.unsplash.com/random/200x200?sig=1" alt="">
         <div class="flex items-center justify-center">
           <AccountGroup fillColor="#515151" class="mr-6"/>
-          <DotsVertical fillColor="#515151" class=" cursor-pointer"/>
+          <DotsVertical fillColor="#515151" class="cursor-pointer mr-6"/>
+					<LogOut class=" cursor-pointer" @click="logOut"/>
         </div>
       </div>
       <div id="search" class="bg-white w-full px-2 border-b shadow-sm">
@@ -44,7 +45,7 @@
       <div class="ml-[420px] fixed w-[calc(100vw-420px)] h-[100vh] bg-gray-100 text-center">
         <div class="grid h-screen place-items-center">
           <div>
-        		<img class="" src="/w-web-not-loaded-chat.png" alt="">
+						<img class="" src="/w-web-not-loaded-chat.png" alt="">
             <div class="text-[32px] text-gray-500 font-light">WhatsApp Web</div>
             <div class="text-[14px] text-gray-600">clone :-)</div>
           </div>
@@ -60,8 +61,12 @@ import ChatView from '@/components/layout/ChatView.vue'
 import ChatsView from '@/components/layout/ChatsView.vue'
 import FindFriendsView from '@/components/layout/ChatsView.vue'
 import AccountGroup from 'vue-material-design-icons/AccountGroup.vue'
+import LogOut from 'vue-material-design-icons/LogOut.vue'
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
 import Magnify from 'vue-material-design-icons/Magnify.vue'
+
+import {mapState, mapActions} from 'pinia'
+import {useUserStore} from '@/store/userStore'
 
 export default {
   data() {
@@ -70,7 +75,10 @@ export default {
 	  showFindFriends: false
     }
   },
-  components:{AccountGroup, DotsVertical, Magnify, ChatsView, ChatView}
+	components: { AccountGroup, DotsVertical, Magnify, ChatsView, ChatView, FindFriendsView, LogOut },
+	methods: {
+		...mapActions(useUserStore, {logOut: 'logOut'}),
+	}
 }
 </script>
 

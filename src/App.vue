@@ -15,8 +15,7 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(window.indexedDB.databases);
-		this.dataBase()
+		this.getDataDB()
 		if(!this.user.isLoggedIn){
 			this.$router.push('/register');
 		};
@@ -25,22 +24,31 @@ export default {
 		...mapState(useUserStore, ['user'])
 	},
 	methods: {
-		dataBase(){
+		...mapActions(useUserStore, {getUser: 'getUserData', setUser: 'setUserData'}),
+		getDataDB(){
 			const request = indexedDB.open("firebaseLocalStorageDb"); // подключаемся к бд firebaseLocalStorageDb
 
 			// при открытии базы данных получаем все данные
-			request.onsuccess = (event) => { 
-				const db = event.target.result;  // получаем бд
-				const transaction = db.transaction(["firebaseLocalStorage"], "readwrite"); // создаем транзакцию
-				const userStoreDb = transaction.objectStore("firebaseLocalStorage");   // получаем хранилище firebaseLocalStorage
-			
-				const getRequest = userStoreDb.getAll();   // получаем все объекты
-				getRequest.onsuccess = (e) => {
-					const user = getRequest.result[0];
-					console.log(user.value.uid);
-				}
-				getRequest.onerror = (e) =>  console.log(e.target.error.message); // выводим сообщение об ошибке
-			};
+			if (request) {
+				request.onsuccess = (event) => {
+					const db = event.target.result;  // получаем бд
+					if (db) {
+						const transaction = db.transaction(["firebaseLocalStorage"], "readwrite"); // создаем транзакцию
+						const userStoreDb = transaction.objectStore("firebaseLocalStorage");   // получаем хранилище firebaseLocalStorage
+
+						const getRequest = userStoreDb.getAll();   // получаем все объекты
+						getRequest.onsuccess = (e) => {
+							const userData = getRequest.result[0];
+							if (userData) {
+								this.setUser(userData.value)
+								this.user.isLoggedIn = true
+								this.$router.push('/');
+							}
+						}
+						getRequest.onerror = (e) =>  console.log(e.target.error.message); // выводим сообщение об ошибке
+					}
+				};
+			}
 		}
 	}
 }

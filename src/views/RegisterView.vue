@@ -4,7 +4,7 @@
 		<div class="bg-black z-[-1] w-full h-[calc(100vh-225px)] fixed bottom-0"></div>
 		<div class="max-w-xl mx-auto">
 			<div class="mt-10 flex items-center w-full">
-				<img width="40" src="/whatsapp-logo.png" alt="">
+				<img width="40" class="m-0" src="/whatsapp-logo.png" alt="">
 				<div class="font-semibold text-gray-100 ml-6">WhatsApp Clone</div>
 			</div>
 			<div class="bg-white z-10 p-24 m-6">
@@ -65,8 +65,13 @@
 
 					<div class="form-group row mb-0">
 						<div class="col-md-8 offset-md-4">
-						<button type="submit" class="w-full mt-10 bg-black text-white py-2 rounded-md">Register</button>
+							<button type="submit" class="w-full mt-10 bg-black text-white py-2 rounded-md">Register</button>
 						</div>
+						<router-link to="/login">
+							<div class="col-md-8 offset-md-4">
+								<button type="submit" class="w-full mt-2  text-black py-2 rounded-md">Login</button>
+							</div>
+						</router-link>
 					</div>
 					</form>
 				</div>
@@ -91,7 +96,6 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(this.getUser);
 	},
 	computed:{
 		...mapState(useUserStore, ['user'])
@@ -103,8 +107,7 @@ export default {
 				this.email,
 				this.password,
 				this.name,
-			),
-			this.$router.push('/');
+			);
 		},
 	}
 }
