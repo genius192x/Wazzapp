@@ -66,7 +66,7 @@ import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
 import Magnify from 'vue-material-design-icons/Magnify.vue'
 
 import {mapState, mapActions} from 'pinia'
-import {useUserStore} from '@/store/userStore'
+import {useUserStore} from '@/store/UserStore'
 
 export default {
   data() {

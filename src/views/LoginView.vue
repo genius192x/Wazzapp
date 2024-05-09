@@ -66,7 +66,7 @@
 
 <script>
 import {mapState, mapActions} from 'pinia'
-import {useUserStore} from '@/store/userStore'
+import {useUserStore} from '@/store/UserStore'
 import { useRouter } from 'vue-router'
 
 export default {

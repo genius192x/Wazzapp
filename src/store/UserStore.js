@@ -69,7 +69,6 @@ export const useUserStore = defineStore('userStore', {
 
 		saveUserDetails(user){
 			console.log(user);
-			debugger
 			try{
 				console.log(user.displayName);
 				setDoc(doc(db, "users", user.uid), {
