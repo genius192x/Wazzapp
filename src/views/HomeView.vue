@@ -2,7 +2,12 @@
   <div class="flex ">
     <header class="fixed w-[420px] z-10">
       <div class="bg-[#F0F0F0] w-full flex justify-between items-center px-3 py-2">
-        <img class="rounded-full ml-1 w-10" src="https://source.unsplash.com/random/200x200?sig=1" alt="">
+        <div class="accaunt flex gap-2 items-center">
+          <img class="rounded-full ml-1 w-10" src="https://source.unsplash.com/random/200x200?sig=1" alt="">
+          <div class="accaunt__name" v-if="user?.data?.displayName">
+            <span>{{ user.data.displayName }}</span>
+          </div>
+        </div>
         <div class="flex items-center justify-center">
           <AccountGroup fillColor="#515151" class="mr-6"/>
           <DotsVertical fillColor="#515151" class="cursor-pointer mr-6"/>
@@ -72,10 +77,13 @@ export default {
   data() {
     return {
       open:true,
-	  showFindFriends: false
+      showFindFriends: false
     }
   },
-	components: { AccountGroup, DotsVertical, Magnify, ChatsView, ChatView, FindFriendsView, LogOut },
+  components: { AccountGroup, DotsVertical, Magnify, ChatsView, ChatView, FindFriendsView, LogOut },
+  computed: {
+    ...mapState(useUserStore, ['user']),
+  },
 	methods: {
 		...mapActions(useUserStore, {logOut: 'logOut'}),
 	}

@@ -5,7 +5,7 @@
       <div class="w-full">
         <div class="flex justify-between items-center">
           <div class="text-[15px] text-gray-600">
-            Mihailuch
+            {{ name }}
           </div>
           <div class="text-[12px] text-gray-600">
             Date
@@ -26,6 +26,9 @@
 <script>
 import CheckAll from 'vue-material-design-icons/CheckAll.vue'
 export default {
+  props: {
+    name: String
+  },
   components:{CheckAll}
 }
 </script>

@@ -80,13 +80,13 @@ export default {
 		}
 	},
 	mounted() {
-		console.log(this.getUser);
+		// console.log(this.getUser);
 	},
 	computed:{
 		...mapState(useUserStore, ['user'])
 	},
 	methods: {
-		...mapActions(useUserStore, {signInUser: 'login',}),
+		...mapActions(useUserStore, {signInUser: 'login'}),
 		authentication(){
 			this.signInUser(
 				this.email,

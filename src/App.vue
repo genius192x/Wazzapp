@@ -23,14 +23,15 @@ export default {
 		}
 	},
 	mounted() {
-		this.getDataDB()
+    this.getDataDB()
+    this.getUsers()
 	},
 	computed:{
     ...mapState(useUserStore, ['user']),
     ...mapState(useGlobalStore, ['isLoading'])
 	},
 	methods: {
-    ...mapActions(useUserStore, { getUser: 'getUserData', setUser: 'setUserData' }),
+    ...mapActions(useUserStore, { getUser: 'getUserData', setUser: 'setUserData', getName: 'getUserName', getUsers: 'getAllUsers' }),
     ...mapActions(useGlobalStore, { toggleLoading: 'toggleLoading' }),
 		getDataDB(){
 			const request = indexedDB.open("firebaseLocalStorageDb"); // подключаемся к бд firebaseLocalStorageDb
@@ -50,6 +51,8 @@ export default {
 								this.setUser(userData.value)
 								this.user.isLoggedIn = true
                 this.toggleLoading()
+                this.getName(userData.value.uid)
+                console.log(this.user);
                 this.$router.push('/');
               } else {
                 this.$router.push('/register');
