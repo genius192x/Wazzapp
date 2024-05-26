@@ -1,33 +1,45 @@
+
 <template>
-  <div is="FindFriends" class="pt-[100px] pt-1 overflow-auto fixed h-100vh w-full">
-    <div class="flex w-full p-4 items-center cursor-pointer hover:bg-gray-100 transition-all">
-      <img class="rounded-full ml-1 w-10 mr-3" src="https://source.unsplash.com/random/200x200?sig=1" alt="">
-      <div class="w-full">
-        <div class="flex justify-between items-center">
-          <div class="text-[15px] text-gray-600">Mihailuch</div>
+    <div class=" flex pt-1 z-0 overflow-auto fixed h-[calc(100vh-100px)] w-[420px]" >
+        <div class="messages w-[100%]">
+            <div class="messages__item" v-for="chat in allUsers" :key="chat.uid" @click="createNewChat(chat)">
+                <ChatRow :name="chat.name"/>
+            </div>
         </div>
-        <div class="flex items-center mt-2">
-          <CheckAll :size="18" class="mr-1"/>
-          <div class="text-[15px] text-gray-500">
-            Hi, i am using Wazzapp
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
+import { mapState, mapActions, } from 'pinia'
+import { useUserStore } from '@/store/UserStore'
+
 import AccountGroup from 'vue-material-design-icons/AccountGroup.vue'
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue'
 import Magnify from 'vue-material-design-icons/Magnify.vue'
 
-import TheMessageRow from '@/components/TheMessageRow.vue'
+import ChatRow from '@/components/ChatRow.vue'
 export default {
-  components:{AccountGroup, DotsVertical, Magnify, TheMessageRow}
+    components: { AccountGroup, DotsVertical, Magnify, ChatRow },
+    computed: {
+        ...mapState(useUserStore, ['allUsers', 'user', 'userChatData']),
+    },
+    methods: {
+        // ...mapActions(useUserStore, { logOut: 'logOut' }),
+        createNewChat(chat) {
+            console.log('test');
+            console.log(this.userChatData);
+            this.userChatData.pop(0, 1);
+            console.log(this.userChatData, 'after reset');
+            this.userChatData.push({
+                id: '',
+                sub1:this.user.data.uid,
+                sub2: chat.uid,
+                fisrtName: this.user.data.displayName
+            })
+            console.log(this.userChatData);
+        }
+    }
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
